@@ -20,6 +20,22 @@ This project demonstrates modern DevOps practices including Infrastructure as Co
 
 ![Architecture Diagram](architecture/architecture-diagram.png)
 
+
+
+
+---
+### Request Flow
+
+1. Developer pushes code to GitHub
+2. GitHub Actions builds Docker image
+3. Image is pushed to Amazon ECR
+4. GitHub Actions updates Amazon EKS
+5. Pods pull image from ECR
+6. Ingress routes traffic
+7. AWS Load Balancer Controller manages ALB
+8. Users access application through ALB
+   
+---
 ```text
 GitHub
    │
