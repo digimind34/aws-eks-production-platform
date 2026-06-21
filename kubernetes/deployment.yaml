@@ -1,6 +1,5 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: nginx
   namespace: production
@@ -19,8 +18,8 @@ spec:
 
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
-
+      - name: app
+        image: 385018113052.dkr.ecr.us-east-1.amazonaws.com/aws-eks-production-platform:latest
         ports:
         - containerPort: 80
+ 
