@@ -13,6 +13,17 @@
 A production-style Kubernetes platform built on Amazon EKS using Terraform, Docker, Amazon ECR, GitHub Actions, AWS Load Balancer Controller, and Application Load Balancers (ALB).
 
 This project demonstrates modern DevOps practices including Infrastructure as Code (IaC), containerization, Kubernetes orchestration, CI/CD automation, and cloud-native application deployment on AWS.
+## Project Highlights
+
+- Provisioned AWS infrastructure using Terraform
+- Built and managed Amazon EKS cluster
+- Implemented AWS Load Balancer Controller
+- Configured ALB-backed Kubernetes Ingress
+- Containerized application using Docker
+- Stored images in Amazon ECR
+- Implemented GitHub Actions CI/CD pipeline
+- Automated deployment to Amazon EKS
+- Configured IAM Roles for Service Accounts (IRSA)
 
 ---
 
@@ -21,7 +32,35 @@ This project demonstrates modern DevOps practices including Infrastructure as Co
 ![Architecture Diagram](architecture/architecture-diagram.png)
 
 
+## Skills Demonstrated
 
+### AWS
+- Amazon EKS
+- Amazon ECR
+- IAM
+- VPC
+- Application Load Balancer (ALB)
+
+### Kubernetes
+- Deployments
+- Services
+- Ingress
+- Namespaces
+- Managed Node Groups
+
+### DevOps
+- Terraform
+- Docker
+- GitHub Actions
+- CI/CD
+- Infrastructure as Code (IaC)
+
+### Networking
+- Public Subnets
+- Private Subnets
+- NAT Gateway
+- Internet Gateway
+- Route Tables
 
 ---
 ### Request Flow
@@ -321,6 +360,97 @@ The application is accessible through the AWS Application Load Balancer provisio
 
 ---
 
+## Phase 8A: Monitoring & Observability
+
+Implemented monitoring for the AWS EKS Production Platform using kube-prometheus-stack.
+The platform uses the kube-prometheus-stack to provide:
+
+- Prometheus
+- Grafana
+- Alertmanager
+- Node Exporter
+- kube-state-metrics
+
+# Monitoring & Observability
+
+The platform uses the kube-prometheus-stack to provide production-grade monitoring and observability.
+
+## Node Exporter Dashboard
+
+![Node Exporter Dashboard](docs/screenshots/grafana-node-exporter.png)
+
+## Kubernetes Cluster Dashboard
+
+![Kubernetes Global Dashboard](docs/screenshots/grafana-k8s-global.png)
+
+## Kubernetes Nodes Dashboard
+
+![Kubernetes Nodes Dashboard](docs/screenshots/grafana-k8s-nodes.png)
+
+## Kubernetes Pods Dashboard
+
+![Kubernetes Pods Dashboard](docs/screenshots/grafana-k8s-pods.png)
+
+## Prometheus Targets
+
+![Prometheus Targets](docs/screenshots/prometheus-targets.png)
+
+### Dashboards
+
+- Node Exporter Full (1860)
+- Kubernetes Views Global (15757)
+- Kubernetes Views Nodes (15759)
+- Kubernetes Views Pods (15760)
+
+### Metrics Collected
+
+- Node CPU
+- Node Memory
+- Pod CPU
+- Pod Memory
+- Filesystem Usage
+- Network Traffic
+- Deployment Status
+- Cluster Health
+
+### Tools Installed
+
+- Prometheus
+- Grafana
+- Alertmanager
+- Node Exporter
+- kube-state-metrics
+- Prometheus Operator
+
+### Features
+
+- Cluster-level metrics
+- Node-level metrics
+- Pod-level metrics
+- Namespace-level metrics
+- Built-in Grafana dashboards
+- Prometheus target discovery
+- 7-day metric retention
+
+### Namespace
+
+```bash
+monitoring
+Verification Commands
+kubectl get pods -n monitoring
+kubectl get svc -n monitoring
+kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
+kubectl port-forward svc/monitoring-kube-prometheus-prometheus 9090:9090 -n monitoring
+
+Grafana runs locally at:
+
+http://localhost:3000
+
+Prometheus runs locally at:
+
+http://localhost:9090
+
+---
 ## Author
 
 ### Babatunde Ayo
@@ -330,4 +460,9 @@ DevOps Engineer | AWS Cloud Engineer | Software Developer
 - GitHub: [@digimind34](https://github.com/digimind34)
 - Portfolio: [DigimindIT](https://digimindit.com)
 - LinkedIn: Add your LinkedIn profile URL here
+  
+---- 
+- ## Resume
+
+View my DevOps Resume: [Resume Link Here]
 ```
