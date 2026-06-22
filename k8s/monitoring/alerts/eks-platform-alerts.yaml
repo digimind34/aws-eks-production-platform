@@ -1,0 +1,55 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: eks-platform-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: eks-platform.rules
+      rules:
+        - alert: HighNodeCPUUsage
+          expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU usage detected"
+            description: "Node {{ $labels.instance }} CPU usage is above 80% for more than 5 minutes."
+
+        - alert: HighNodeMemoryUsage
+          expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High memory usage detected"
+            description: "Node {{ $labels.instance }} memory usage is above 80% for more than 5 minutes."
+
+        - alert: KubernetesNodeNotReady
+          expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Kubernetes node is not ready"
+            description: "Node {{ $labels.node }} has been NotReady for more than 5 minutes."
+
+        - alert: KubernetesPodCrashLooping
+          expr: increase(kube_pod_container_status_restarts_total[10m]) > 3
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod is restarting frequently"
+            description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} container {{ $labels.container }} restarted more than 3 times in 10 minutes."
+
+        - alert: DeploymentReplicaMismatch
+          expr: kube_deployment_status_replicas_available < kube_deployment_spec_replicas
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Deployment replica mismatch"
+            description: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} does not have the desired number of available replicas."
