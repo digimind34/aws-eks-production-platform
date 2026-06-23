@@ -8,6 +8,23 @@
 ![Amazon ECR](https://img.shields.io/badge/Amazon-ECR-yellow)
 ![Amazon ALB](https://img.shields.io/badge/AWS-ALB-red)
 
+## Project Overview
+
+This project demonstrates a production-style AWS EKS platform built using:
+
+- Terraform
+- Amazon EKS
+- Docker
+- Amazon ECR
+- GitHub Actions
+- AWS Load Balancer Controller
+- Prometheus
+- Grafana
+- Alertmanager
+- Slack Notifications
+
+The platform implements Infrastructure as Code (IaC), CI/CD, monitoring, observability, and alerting practices commonly used in modern DevOps environments.
+
 ## Overview
 
 A production-style Kubernetes platform built on Amazon EKS using Terraform, Docker, Amazon ECR, GitHub Actions, AWS Load Balancer Controller, and Application Load Balancers (ALB).
@@ -27,12 +44,46 @@ This project demonstrates modern DevOps practices including Infrastructure as Co
 
 ---
 
+
+## Key Achievements
+
+✅ Built AWS infrastructure using Terraform
+
+✅ Deployed Kubernetes workloads to Amazon EKS
+
+✅ Implemented GitHub Actions CI/CD pipeline
+
+✅ Configured ALB Ingress Controller
+
+✅ Integrated Prometheus and Grafana monitoring
+
+✅ Implemented Alertmanager Slack notifications
+
+✅ Automated container image delivery using Amazon ECR
+
+✅ Production-ready observability stack
 ## Architecture
 
 ![Architecture Diagram](architecture/architecture-diagram.png)
 
 
 ## Skills Demonstrated
+
+## Skills Demonstrated
+
+- AWS
+- Terraform
+- Kubernetes
+- Docker
+- Helm
+- GitHub Actions
+- CI/CD
+- Prometheus
+- Grafana
+- Alertmanager
+- Linux
+- Infrastructure as Code
+- Monitoring & Observability
 
 ### AWS
 - Amazon EKS
@@ -99,11 +150,34 @@ Kubernetes Service
    ▼
 Pods
 ```
+## Screenshots
+
+### Grafana Monitoring
+
+![Grafana Nodes](docs/screenshots/grafana-k8s-nodes.png)
+
+### Alertmanager Slack Notification
+
+![Slack Alert](docs/screenshots/slack-alert-received.png)
+
 
 ---
 
 ## Technologies Used
+## Technology Stack
 
+| Category | Technologies |
+|-----------|-------------|
+| Cloud | AWS |
+| IaC | Terraform |
+| Containerization | Docker |
+| Orchestration | Kubernetes (EKS) |
+| Registry | Amazon ECR |
+| CI/CD | GitHub Actions |
+| Monitoring | Prometheus |
+| Visualization | Grafana |
+| Alerting | Alertmanager |
+| Notifications | Slack |
 ### Cloud
 
 * Amazon Web Services (AWS)
@@ -451,6 +525,247 @@ Prometheus runs locally at:
 http://localhost:9090
 
 ---
+
+# Phase 8A & 8B – Monitoring, Observability & Alerting
+
+## Overview
+
+This project implements production-grade monitoring, observability, and alerting for an AWS EKS platform using Prometheus, Grafana, Alertmanager, Node Exporter, kube-state-metrics, and Slack notifications.
+
+---
+
+## Monitoring Stack
+
+The monitoring stack was deployed using the Prometheus Community Helm Chart:
+
+```bash
+kube-prometheus-stack
+```
+
+### Components
+
+| Component           | Purpose                                   |
+| ------------------- | ----------------------------------------- |
+| Prometheus          | Metrics collection and storage            |
+| Grafana             | Visualization and dashboards              |
+| Alertmanager        | Alert routing and notification management |
+| Node Exporter       | Node-level metrics                        |
+| kube-state-metrics  | Kubernetes object metrics                 |
+| Prometheus Operator | Lifecycle management                      |
+
+---
+
+## Architecture
+
+```text
+Kubernetes Cluster
+        │
+        ▼
+   Prometheus
+        │
+        ▼
+   Alertmanager
+        │
+        ▼
+      Slack
+
+Grafana
+   │
+   ▼
+Prometheus
+```
+
+---
+
+# Grafana Dashboards
+
+## Node Exporter Dashboard
+
+Provides:
+
+* CPU Utilization
+* Memory Utilization
+* Disk Usage
+* Network Throughput
+* System Load
+
+![Node Exporter Dashboard](docs/screenshots/grafana-node-exporter.png)
+
+---
+
+## Kubernetes Cluster Dashboard
+
+Provides:
+
+* Cluster Health
+* CPU Consumption
+* Memory Consumption
+* Namespace Statistics
+* Deployment Status
+
+![Kubernetes Global Dashboard](docs/screenshots/grafana-k8s-global.png)
+
+---
+
+## Kubernetes Nodes Dashboard
+
+Provides:
+
+* Node Utilization
+* Node Uptime
+* Running Pods
+* Resource Consumption
+
+![Kubernetes Nodes Dashboard](docs/screenshots/grafana-k8s-nodes.png)
+
+---
+
+## Kubernetes Pods Dashboard
+
+Provides:
+
+* Pod CPU Usage
+* Pod Memory Usage
+* Pod Restart Counts
+* Container Resource Consumption
+
+![Kubernetes Pods Dashboard](docs/screenshots/grafana-k8s-pods.png)
+
+---
+
+# Prometheus Target Health
+
+Prometheus successfully scrapes metrics from:
+
+* kube-apiserver
+* kubelet
+* kube-proxy
+* coredns
+* node-exporter
+* kube-state-metrics
+* grafana
+* alertmanager
+
+![Prometheus Targets](docs/screenshots/prometheus-targets.png)
+
+---
+
+# Alerting & Notifications
+
+Alerting is implemented using Prometheus Rules and Alertmanager.
+
+## Alert Rules
+
+### High CPU Usage
+
+```yaml
+HighNodeCPUUsage
+```
+
+### High Memory Usage
+
+```yaml
+HighNodeMemoryUsage
+```
+
+### Node Not Ready
+
+```yaml
+KubernetesNodeNotReady
+```
+
+### Pod Crash Loop
+
+```yaml
+KubernetesPodCrashLooping
+```
+
+### Deployment Replica Mismatch
+
+```yaml
+DeploymentReplicaMismatch
+```
+
+### Slack Routing Test
+
+```yaml
+SlackTestAlert
+```
+
+---
+
+# Alertmanager Configuration
+
+Alertmanager uses:
+
+* AlertmanagerConfig CRDs
+* Kubernetes Secrets
+* Slack Incoming Webhooks
+
+Notification Flow:
+
+```text
+Prometheus
+     │
+     ▼
+Alertmanager
+     │
+     ▼
+Slack
+```
+
+---
+
+# Slack Notification Example
+
+Alert notifications are delivered directly to Slack channels.
+
+![Slack Alert Received](docs/screenshots/slack-alert-received.png)
+
+---
+
+# Technologies Used
+
+* AWS EKS
+* Terraform
+* Kubernetes
+* Helm
+* Prometheus
+* Grafana
+* Alertmanager
+* Node Exporter
+* kube-state-metrics
+* GitHub Actions
+* Amazon ECR
+* AWS Load Balancer Controller
+* Slack
+
+---
+
+# Key Achievements
+
+✅ Infrastructure as Code with Terraform
+
+✅ Kubernetes Deployment on AWS EKS
+
+✅ GitHub Actions CI/CD Pipeline
+
+✅ Container Registry with Amazon ECR
+
+✅ Application Delivery via ALB Ingress
+
+✅ Prometheus Monitoring
+
+✅ Grafana Dashboards
+
+✅ Alertmanager Alert Routing
+
+✅ Slack Notifications
+
+✅ Production-style Observability Platform
+
+---
+
 ## Author
 
 ### Babatunde Ayo

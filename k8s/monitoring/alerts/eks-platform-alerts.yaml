@@ -26,6 +26,15 @@ spec:
           annotations:
             summary: "High memory usage detected"
             description: "Node {{ $labels.instance }} memory usage is above 80% for more than 5 minutes."
+        - alert: SlackTestAlert
+          expr: vector(1)
+          for: 1m
+          labels:
+            severity:  critical
+            namespace: monitoring
+          annotations:
+            summary:  "Slack routing test"
+            description: "This alert verifies Alertmanager routing to Slack."
 
         - alert: KubernetesNodeNotReady
           expr: kube_node_status_condition{condition="Ready",status="true"} == 0
